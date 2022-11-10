@@ -9,6 +9,8 @@ import java.util.List;
 
 @RestController
 public class UserController {
+
+    // 이렇게 UserDaoService 선언 후, 생성자를 호출하는 게 객체 지향적으로 맞다고 했던가, DI 방식에서 맞다고 했던가 그랬다.
     private UserDaoService userDaoService;
 
     public UserController(UserDaoService service){
@@ -23,7 +25,13 @@ public class UserController {
     // GET /users/1 -> 전달 시 String 형태
     @GetMapping(path = "/users/{id}")
     public User retrieveUser(@PathVariable int id){
-        return userDaoService.findOne(id);
+
+        User user = userDaoService.findOne(id);
+        if(user == null){
+            throw new UserNotFoundException(String.format("ID[%s] not found" , id));
+        }
+        return user;
+
     }
 
     @PostMapping("/users")

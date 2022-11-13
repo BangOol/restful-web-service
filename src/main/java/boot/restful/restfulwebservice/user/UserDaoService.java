@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -38,4 +39,31 @@ public class UserDaoService {
         }
         return null;
     }
+
+    public User deleteById(int id){
+        Iterator<User> iterator = users.iterator();
+
+        while(iterator.hasNext()){
+            User user = iterator.next();
+
+            if(user.getId() == id){
+                iterator.remove();
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User putById(int id){
+        Iterator<User> userIterator = users.iterator();
+        while(userIterator.hasNext()){
+            User user = userIterator.next();
+
+            if(user.getId() == id){
+                // 해당 id가 있기 때문에 exception 발생시키거나 해야 될 듯?
+            }
+        }
+        return null;
+    }
+
 }
